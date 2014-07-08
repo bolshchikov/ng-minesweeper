@@ -1,7 +1,17 @@
-.hero-unit{:"ng-controller" => "MainCtrl"}
-  %h1 {{'general.YO' | translate}}
-  %p You now have
-  %ul
-    %li{:"ng-repeat" => "thing in awesomeThings"} {{thing}}
-  %p installed.
-  %h3 Enjoy coding! - Yeoman
+%h1 This is ng-minesweeper
+
+.parameters{:"ng-controller" => "MainCtrl as main"}
+  %form{:"ng-submit" => "main.generate(main.gridWidth, main.gridHeight, main.numOfMines)"}
+    %input{:"ng-model" => "main.gridWidth", :"placeholder" => "Grid Width", :"ng-pattern" => "/^[0-9]{1,2}$/", :"required" => "true"}
+    %span &times
+    %input{:"ng-model" => "main.gridHeight", :"placeholder" => "Grid Height", :"ng-pattern" => "/^[0-9]{1,2}$/", :"required" => "true"}
+    %span and
+    %input{:"ng-model" => "main.numOfMines", :"placeholder" => "How many mines?", :"ng-pattern" => "/^[0-9]{1,2}$/", :"required" => "true"}
+    %input{:"type" => "submit", :"value" => "Go!"}
+
+.content
+  %table
+
+
+
+

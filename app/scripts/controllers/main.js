@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('ngMinesweeperAppInternal')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'Bower',
-      'Grunt',
-      'Haml',
-      'Compass',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function (Grid) {
+    this.generate = function (width, height, amount) {
+      this.grid = new Grid(width, height, amount);
+      console.log(this.grid);
+    }
   });
+
