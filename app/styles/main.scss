@@ -10,11 +10,15 @@ $font-helvetica75: "HelveticaNeueW01-75Bold", "HelveticaNeueW02-75Bold", "Helvet
   height: 100%;
 }
 
-form {
+.parameters form {
   .ng-invalid {
     @include input(crimson);
   }
   .ng-valid {
     @include input(#228b22);
   }
+}
+
+.content .status-bar {
+  margin-top: 10px;
 }
