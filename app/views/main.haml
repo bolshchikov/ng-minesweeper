@@ -12,9 +12,14 @@
   %hr
   .grid-wrapper
     .status-bar
-      %input{:"ng-value" => "main.grid.numMarked", :"readonly" => "true"}
+      %input{:"ng-value" => "main.grid.numMines - main.grid.numMarked", :"readonly" => "true"}
     %table{:"class" => "grid"}
       %tr{:"ng-repeat" => "row in main.grid.board track by $index"}
-        %td{:"ng-repeat" => "cell in row track by $index"} {{cell}}
+        %td{:"ng-repeat" => "tile in row track by $index"}
+          %tile{:"x" => "{{$parent.$index}}", :"y" => "{{$index}}", :"grid" => "main.grid"} {{tile}}
+
+    %table{:"class" => "grid"}
+      %tr{:"ng-repeat" => "row in main.grid.mines track by $index"}
+        %td{:"ng-repeat" => "tile in row track by $index"} {{tile}}
 
 

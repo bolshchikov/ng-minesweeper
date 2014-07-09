@@ -108,7 +108,7 @@ angular.module('ngMinesweeperAppInternal')
 
       for (var i = minx; i < maxx; i += 1) {
         for (var j = miny; j < maxy; j += 1) {
-          if (this.mines[i][y]) { result += 1; }
+          if (this.mines[i][j]) { result += 1; }
         }
       }
       return result;

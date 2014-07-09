@@ -36,4 +36,8 @@ describe('Service: Grid', function () {
     expect(grid.board[0][0]).toEqual(tileState.UNKNOWN);
   }));
 
+  it('should return the amount of mines around', function () {
+
+  });
+
 });

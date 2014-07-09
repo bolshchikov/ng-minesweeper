@@ -50,6 +50,7 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/directives/tile.js"></script>
     <script src="scripts/services/grid.js"></script>
+    <script src="scripts/directives/rightClick.js"></script>
     <!-- endbuild --><!-- scripts -->
 
     <!-- #if( false ) -->
