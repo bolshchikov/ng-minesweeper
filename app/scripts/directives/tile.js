@@ -5,10 +5,10 @@ angular.module('ngMinesweeperAppInternal')
     return {
       templateUrl: 'views/tile.html',
       restrict: 'EA',
-      transclude: true,
       scope: {
         x: '@',
         y: '@',
+        value: '@',
         grid: '='
       },
 
@@ -17,34 +17,39 @@ angular.module('ngMinesweeperAppInternal')
         var x = parseInt(scope.x, 10);
         var y = parseInt(scope.y, 10);
 
-        if (scope.grid.board[x][y] < 0) {
-          element.find('.tile-content').hide();
-        }
-        else {
-          element.find('.tile-content').show();
-        }
+        scope.$watch('value', function (arg) {
+          var value = parseInt(arg, 10);
+          var tile = element.find('.tile');
+          if (value === tileState.MINE) {
+            tile.toggleClass('mined');
+          }
+          else if (value === tileState.MARKED) {
+            tile.toggleClass('marked');
+          }
+          else if (value >= 0) {
+            tile.toggleClass('discovered');
+            tile.text(value);
+          }
+          else {
+            tile.removeClass('discovered');
+            tile.removeClass('marked');
+            tile.removeClass('mined');
+          }
+        });
 
         scope.reveal = function () {
           if (scope.grid.board[x][y] >= 0) {
             return;
           }
-          var res = scope.grid.reveal(x, y);
-          if (res === tileState.MINE) {
-            element.find('.tile').toggleClass('mined');
-          }
-          else {
-            element.find('.tile').toggleClass('discovered');
-            element.find('.tile-content').show();
-          }
+          scope.grid.reveal(x, y);
         };
+
         scope.toggle = function () {
           if (scope.grid.board[x][y] === tileState.UNKNOWN) {
-            element.find('.tile').toggleClass('marked');
             scope.grid.mark(x, y);
             return;
           }
           if (scope.grid.board[x][y] === tileState.MARKED) {
-            element.find('.tile').toggleClass('marked');
             scope.grid.unmark(x, y);
             return;
           }
