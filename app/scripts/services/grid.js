@@ -69,7 +69,6 @@ angular.module('ngMinesweeperAppInternal')
         }
         else {
           this.board[x][y] = this._closeMines(x, y);
-//          this.revealMore(x, y);
         }
       }
       return this.board[x][y];

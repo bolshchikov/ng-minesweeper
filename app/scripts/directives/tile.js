@@ -26,7 +26,10 @@ angular.module('ngMinesweeperAppInternal')
           else if (value === tileState.MARKED) {
             tile.toggleClass('marked');
           }
-          else if (value >= 0) {
+          else if (value === 0) {
+            tile.toggleClass('discovered');
+          }
+          else if (value > 0) {
             tile.toggleClass('discovered');
             tile.text(value);
           }
@@ -41,7 +44,10 @@ angular.module('ngMinesweeperAppInternal')
           if (scope.grid.board[x][y] >= 0) {
             return;
           }
-          scope.grid.reveal(x, y);
+          var res = scope.grid.reveal(x, y);
+          if (res === 0) {
+            scope.grid.revealMore(x, y);
+          }
         };
 
         scope.toggle = function () {
