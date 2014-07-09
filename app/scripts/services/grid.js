@@ -69,9 +69,32 @@ angular.module('ngMinesweeperAppInternal')
         }
         else {
           this.board[x][y] = this._closeMines(x, y);
+//          this.revealMore(x, y);
         }
       }
       return this.board[x][y];
+    };
+
+    Grid.prototype.revealMore = function (x, y) {
+      var minx, miny, maxx, maxy;
+      // Don't try to check beyond the edges of the board...
+      minx = (x <= 0 ? 0 : x - 1);
+      miny = (y <= 0 ? 0 : y - 1);
+      maxx = (x >= this.width - 1 ? this.width : x + 2);
+      maxy = (y >= this.height - 1 ? this.height : y + 2);
+      // Loop over all surrounding cells
+      for (var i = minx; i < maxx; i += 1) {
+        for (var j = miny; j < maxy; j += 1) {
+          if (!this.mines[i][j] && this.board[i][j] === tileState.UNKNOWN) {
+            this.reveal(i, j);
+            if (this.board[i][j] === 0) {
+              // Call ourself recursively
+              this.revealMore(i, j);
+            }
+          }
+        }
+      }
+
     };
 
     Grid.prototype.mark = function (x, y) {
