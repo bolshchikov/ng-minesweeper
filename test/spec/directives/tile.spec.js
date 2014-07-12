@@ -7,8 +7,7 @@ describe('Directive: tile', function () {
     module('ngMinesweeperAppInternal');
   });
 
-  var element,
-    scope;
+  var element, scope;
 
   beforeEach(inject(function ($rootScope) {
     scope = $rootScope.$new();
