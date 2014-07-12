@@ -10,6 +10,12 @@ describe('Service: Grid', function () {
   // instantiate service
   var Grid, tileState;
 
+  var minesMock = [
+    [false, true, false],
+    [true, false, false],
+    [false, false, true]
+  ];
+
   beforeEach(inject(function (_Grid_, _tileState_) {
     Grid = _Grid_;
     tileState = _tileState_;
@@ -60,13 +66,33 @@ describe('Service: Grid', function () {
 
   it('should return the amount of mines around', function () {
     var grid = new Grid(3, 3, 3);
-    grid.mines = [
-      [false, true, false],
-      [true, false, false],
-      [false, false, true]
-    ];
+    grid.mines = minesMock;
     expect(grid._closeMines(0, 0)).toEqual(2);
     expect(grid._closeMines(1, 1)).toEqual(3);
   });
 
+  it('should mark a tile', function () {
+    var grid = new Grid(3, 3, 3);
+    expect(grid.board[0][0]).toEqual(tileState.UNKNOWN);
+    grid.mark(0, 0);
+    expect(grid.board[0][0]).toEqual(tileState.MARKED);
+  });
+
+  it('should unmark a tile', function () {
+    var grid = new Grid(3, 3, 3);
+    grid.unmark(0, 0);
+    expect(grid.board[0][0]).toEqual(tileState.UNKNOWN);
+    grid.mark(0, 0);
+    grid.unmark(0, 0);
+    expect(grid.board[0][0]).toEqual(tileState.UNKNOWN);
+  });
+
+  it('should reveal tiles', function () {
+    var grid = new Grid(3, 3, 3);
+    grid.mines = minesMock;
+    grid.reveal(0, 0);
+    expect(grid.board[0][0]).toEqual(2);
+    grid.reveal(0, 1);
+    expect(grid.board[0][1]).toEqual(tileState.MINE);
+  });
 });
