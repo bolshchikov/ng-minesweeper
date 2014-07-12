@@ -55,8 +55,8 @@ angular.module('ngMinesweeperAppInternal')
         index = getRandomInt(min, max);
         if (!this.mines[Math.floor(index / big)][index % small]) {
           this.mines[Math.floor(index / big)][index % small] = true;
+          temp += 1;
         }
-        temp += 1;
       }
 
     };
