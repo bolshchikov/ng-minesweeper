@@ -4,7 +4,7 @@ angular.module('ngMinesweeperAppInternal')
   .directive('tile', function (tileState) {
     return {
 //      templateUrl: 'views/tile.html',
-      template: '.tile{:"ng-click" => "reveal()", :"right-click" => "toggle()"}',
+      template:  '<div class="tile" ng-click="reveal()" right-click="toggle()"></div>',
       restrict: 'E',
       scope: {
         x: '@',
