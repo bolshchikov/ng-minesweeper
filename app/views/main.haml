@@ -2,13 +2,13 @@
 
 .content{:"ng-controller" => "MainCtrl as main"}
   .parameters
-    %form{:"ng-submit" => "main.generate(main.gridWidth, main.gridHeight, main.numOfMines)"}
-      %input{:"ng-model" => "main.gridWidth", :"placeholder" => "Grid Width", :"type" => "number", :"required" => "true"}
-      %span &times
-      %input{:"ng-model" => "main.gridHeight", :"placeholder" => "Grid Height", :"type" => "number", :"required" => "true"}
-      %span and
-      %input{:"ng-model" => "main.numOfMines", :"placeholder" => "How many mines?", :"type" => "number", :"required" => "true"}
-      %input{:"type" => "submit", :"value" => "Go!"}
+    %input{:"ng-model" => "main.gridWidth", :"placeholder" => "Grid Width", :"type" => "number", :"required" => "true"}
+    %span &times
+    %input{:"ng-model" => "main.gridHeight", :"placeholder" => "Grid Height", :"type" => "number", :"required" => "true"}
+    %span and
+    %input{:"ng-model" => "main.numOfMines", :"placeholder" => "How many mines?", :"type" => "number", :"required" => "true"}
+    %button{:"ng-click" => "main.generate(main.gridWidth, main.gridHeight, main.numOfMines)"} Go!
+    %button{:"ng-click" => "main.save()"} Save
   %hr
   .grid-wrapper
     .status-bar

@@ -10,7 +10,7 @@ $font-helvetica75: "HelveticaNeueW01-75Bold", "HelveticaNeueW02-75Bold", "Helvet
   height: 100%;
 }
 
-.parameters form {
+.parameters {
   .ng-invalid {
     @include input(crimson);
   }

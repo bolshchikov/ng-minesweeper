@@ -152,5 +152,15 @@ angular.module('ngMinesweeperAppInternal')
       }
     };
 
+    Grid.prototype.toJSON = function () {
+      return {
+        width: this.width,
+        height: this.height,
+        numMines: this.numMines,
+        numMarked: this.numMarked,
+        board: this.board
+      };
+    };
+
     return Grid;
   });
