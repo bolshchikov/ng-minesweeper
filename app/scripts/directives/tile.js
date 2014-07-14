@@ -4,42 +4,31 @@ angular.module('ngMinesweeperAppInternal')
   .directive('tile', function (tileState) {
     return {
 //      templateUrl: 'views/tile.html',
-      template:  '<div class="tile" ng-click="reveal()" right-click="toggle()"></div>',
+      template:  '<div class="tile" ng-class="{discovered: isDiscovered(), marked: isMarked(), mined: isMined()}" ng-click="reveal()" right-click="toggle()"><span ng-if="isDiscovered()">{{value ? value : \'\'}}</span></div>',
       restrict: 'E',
       scope: {
         x: '@',
         y: '@',
-        value: '@',
+        value: '=',
         grid: '='
       },
 
-      link: function (scope, element) {
+      link: function (scope) {
 
         var x = parseInt(scope.x, 10);
         var y = parseInt(scope.y, 10);
 
-        scope.$watch('value', function (arg) {
-          var value = parseInt(arg, 10);
-          var tile = element.find('.tile');
-          if (value === tileState.MINE) {
-            tile.toggleClass('mined');
-          }
-          else if (value === tileState.MARKED) {
-            tile.toggleClass('marked');
-          }
-          else if (value === 0) {
-            tile.toggleClass('discovered');
-          }
-          else if (value > 0) {
-            tile.toggleClass('discovered');
-            tile.text(value);
-          }
-          else {
-            tile.removeClass('discovered');
-            tile.removeClass('marked');
-            tile.removeClass('mined');
-          }
-        });
+        scope.isDiscovered = function () {
+          return scope.value >= 0;
+        };
+
+        scope.isMarked = function () {
+          return scope.value === tileState.MARKED;
+        };
+
+        scope.isMined = function () {
+          return scope.value === tileState.MINE;
+        };
 
         scope.reveal = function () {
           if (scope.grid.board[x][y] >= 0) {

@@ -22,15 +22,10 @@ angular.module('ngMinesweeperAppInternal')
 
       /*jshint ignore:start */
       // create empty two-dimensional array for mines locations
-      this.mines = Array.apply(null, Array(width)).map(function () {
-        return Array.apply(null, Array(height)).map(function () {
-          return false;
-        });
-      });
       // state of the grid how user sees it
       this.board = Array.apply(null, Array(width)).map(function () {
         return Array.apply(null, Array(height)).map(function () {
-          return tileState.UNKNOWN;
+          return {mine: false, value: tileState.UNKNOWN};
         });
       });
       /*jshint ignore:end */
@@ -38,23 +33,13 @@ angular.module('ngMinesweeperAppInternal')
       // populate mines randomly
       var temp = 0;
       var min = 0;
-      var max = this.width * this.height;
-      var big;
-      var small;
-      var index;
+
       // we need to find the bigger one to avoid to access undefined member in array
-      if (this.width >= this.height) {
-        big = this.width;
-        small = this.height;
-      }
-      else {
-        big = this.height;
-        small = this.width;
-      }
       while (temp < this.numMines) {
-        index = getRandomInt(min, max);
-        if (!this.mines[Math.floor(index / big)][index % small]) {
-          this.mines[Math.floor(index / big)][index % small] = true;
+        var xindex = getRandomInt(min, this.width);
+        var yindex = getRandomInt(min, this.height);
+        if (!this.board[xindex][yindex].mine) {
+          this.board[xindex][yindex].mine = true;
           temp += 1;
         }
       }
@@ -62,16 +47,15 @@ angular.module('ngMinesweeperAppInternal')
     };
 
     Grid.prototype.reveal = function (x, y) {
-      if (this.board[x][y] === tileState.UNKNOWN) {
+      if (this.board[x][y].value === tileState.UNKNOWN) {
         this.numUnknown -= 1;
-        if (this.mines[x][y]) {
-          this.board[x][y] = tileState.MINE;
-        }
-        else {
-          this.board[x][y] = this._closeMines(x, y);
+        if (this.board[x][y].mine) {
+          this.board[x][y].value = tileState.MINE;
+        } else {
+          this.board[x][y].value = this._closeMines(x, y);
         }
       }
-      return this.board[x][y];
+      return this.board[x][y].value;
     };
 
     Grid.prototype.revealMore = function (x, y) {

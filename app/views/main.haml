@@ -16,7 +16,7 @@
     %table{:"class" => "grid"}
       %tr{:"ng-repeat" => "row in main.grid.board track by $index"}
         %td{:"ng-repeat" => "tile in row track by $index"}
-          %tile{:"x" => "{{$parent.$index}}", :"y" => "{{$index}}", :"grid" => "main.grid", :"value" => "{{tile}}"}
+          %tile{:"x" => "{{$parent.$index}}", :"y" => "{{$index}}", :"grid" => "main.grid", :"value" => "tile"}
 
     -#%table{:"class" => "grid"}
     -#  %tr{:"ng-repeat" => "row in main.grid.mines track by $index"}
