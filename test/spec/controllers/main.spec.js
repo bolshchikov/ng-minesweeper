@@ -7,18 +7,25 @@ describe('Controller: ParametersCtrl', function () {
     module('ngMinesweeperAppInternal');
   });
 
-  var MainCtrl, scope;
+  var ctrl, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    ctrl = $controller('MainCtrl', {
       $scope: scope
     });
   }));
 
-  it('controller should be defined', function () {
-    expect(MainCtrl).toBeDefined();
+  it('should be defined', function () {
+    expect(ctrl).toBeDefined();
+  });
+
+  it('should generate a new grid', function () {
+    ctrl.generate(9, 9, 10);
+    expect(ctrl.grid).toBeDefined();
+    expect(ctrl.grid.width).toEqual(9);
+    expect(ctrl.grid.height).toEqual(9);
   });
 
 });
