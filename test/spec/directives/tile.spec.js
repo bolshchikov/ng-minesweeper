@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: tile', function () {
+xdescribe('Directive: tile', function () {
 
   // load the directive's module
   beforeEach(function () {

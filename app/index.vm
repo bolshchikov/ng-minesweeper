@@ -56,11 +56,13 @@
     <!-- #if( false ) -->
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <!-- build:js(test) scripts/mocks.js -->
+    <script src="mock/board-mock.js"></script>
     <script src="mock/server-api.js"></script>
     <!-- endbuild -->
     <script>
       if (ENABLE_MOCKS) {
         angular.module('ngMinesweeperApp').requires.push('ngMinesweeperAppMocks');
+        angular.module('ngMinesweeperApp').requires.push('ngMinesweeperAppBoardMock');
       }
     </script>
     <!-- #end -->
