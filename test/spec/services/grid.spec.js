@@ -84,6 +84,7 @@ describe('Service: Grid', function () {
     expect(grid.board[0][1].marked).toBe(false);
     grid.toggle(0, 1);
     expect(grid.board[0][1].marked).toBe(true);
+    expect(grid.numMarked).toEqual(1);
   }));
 
   it('should unmark a tile', inject(function (boardMock) {
@@ -93,6 +94,7 @@ describe('Service: Grid', function () {
     expect(grid.board[0][1].marked).toBe(true);
     grid.toggle(0, 1);
     expect(grid.board[0][1].marked).toBe(false);
+    expect(grid.numMarked).toEqual(0);
   }));
 
 });

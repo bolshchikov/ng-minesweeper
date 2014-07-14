@@ -143,11 +143,11 @@ angular.module('ngMinesweeperAppInternal')
       if (tile.marked) {
         tile.marked = false;
         tile.value = -1;
-        this.numMarked += 1;
+        this.numMarked -= 1;
       } else {
         if (this.numMines - this.numMarked) {
           tile.marked = true;
-          this.numMarked -= 1;
+          this.numMarked += 1;
         }
       }
     };

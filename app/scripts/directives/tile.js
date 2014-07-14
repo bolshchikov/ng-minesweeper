@@ -3,8 +3,8 @@
 angular.module('ngMinesweeperAppInternal')
   .directive('tile', function () {
     return {
-      templateUrl: 'views/tile.html',
-//      template:  '<div class="tile" ng-class="{discovered: isDiscovered(), marked: isMarked(), mined: isMined()}" ng-click="reveal()" right-click="toggle()"><span ng-if="isDiscovered()">{{value ? value : \'\'}}</span></div>',
+//      templateUrl: 'views/tile.html',
+      template:  '<div class="tile" ng-class="{discovered: isDiscovered(), marked: isMarked(), mined: isMined()}" ng-click="reveal()" right-click="toggle()"><span>{{tile.value}}</span></div>',
       restrict: 'E',
       replace: true,
       scope: {
