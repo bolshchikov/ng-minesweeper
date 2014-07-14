@@ -37,10 +37,16 @@ $font-helvetica75: "HelveticaNeueW01-75Bold", "HelveticaNeueW02-75Bold", "Helvet
     text-align: center;
     width: 20px;
     height: 20px;
+    span {
+      display: none;
+    }
   }
   .discovered {
     box-shadow: inset 0 0 3px grey;
     background-color: lightgray;
+    span {
+      display: block;
+    }
   }
   .marked {
     box-shadow: inset 0 0 3px #0cdc00;

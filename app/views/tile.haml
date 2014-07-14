@@ -1,1 +1,2 @@
-.tile{:"ng-click" => "reveal()", :"right-click" => "toggle()"}
+.tile{:"ng-click" => "reveal()", :"right-click" => "toggle()", :"ng-class" => "{discovered: isDiscovered(), marked: isMarked(), mined: isMined()}"}
+  %span {{tile.value}}
