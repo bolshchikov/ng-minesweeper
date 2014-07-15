@@ -10,9 +10,11 @@ angular.module('ngMinesweeperAppInternal')
 
     $http.get(GameURL.url)
       .success(function (res) {
-        if (res) {
-          that.grid = res;
-        }
+        if (!res) { return; }
+        var grid = new Grid(res.width, res.height, res.numMines);
+        grid.numMarked = res.numMarked;
+        grid.board = res.board;
+        that.grid = grid;
       })
       .error(function () {
         $log.log('No save found');
