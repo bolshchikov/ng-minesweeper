@@ -6,6 +6,9 @@ describe('Service: Grid', function () {
   beforeEach(function () {
     module('ngMinesweeperAppInternal');
     module('ngMinesweeperAppBoardMock');
+    // module({getRandomInt: function (max) {
+    //   return max;
+    // }});
   });
 
   // instantiate service

@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('ngMinesweeperAppInternal')
-  .factory('Grid', function () {
+  .factory('getRandomInt', function () {
+    return function (max) {
+      return Math.floor(Math.random() * max);
+    };
+  })
+  .factory('Grid', function (getRandomInt) {
 
     var Grid = function (width, height, amount) {
 
@@ -35,8 +40,8 @@ angular.module('ngMinesweeperAppInternal')
 
       // we need to find the bigger one to avoid to access undefined member in array
       while (temp < this.numMines) {
-        var xindex = this._getRandomInt(this.width);
-        var yindex = this._getRandomInt(this.height);
+        var xindex = getRandomInt(this.width);
+        var yindex = getRandomInt(this.height);
         if (!this.board[xindex][yindex].mine) {
           this.board[xindex][yindex].mine = true;
           temp += 1;
@@ -52,9 +57,6 @@ angular.module('ngMinesweeperAppInternal')
      * @returns {number}
      * @private
      */
-    Grid.prototype._getRandomInt = function (max) {
-      return Math.floor(Math.random() * max);
-    };
 
     /**
      * A helper function that calculates the minx, miny, maxx, and maxy

@@ -17,10 +17,6 @@ describe('Controller: ParametersCtrl', function () {
     });
   }));
 
-  it('should be defined', function () {
-    expect(ctrl).toBeDefined();
-  });
-
   it('should generate a new grid', function () {
     ctrl.generate(9, 9, 10);
     expect(ctrl.grid).toBeDefined();

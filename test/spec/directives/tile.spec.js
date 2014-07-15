@@ -18,23 +18,17 @@ describe('Directive:tile', function () {
       parentScope.y = y;
       parentScope.grid = {
         board: boardMock,
-        toggle: function () {
-          if (boardMock[x][y].marked) {
-            boardMock[x][y].marked = false;
-          } else {
-            boardMock[x][y].marked = true;
-          }
-        },
+        toggle: jasmine.createSpy('toggle'),
         reveal: function (x, y) {
           boardMock[x][y].value = 1;
         }
       };
       parentScope.tile = boardMock[x][y];
 
-      element = angular.element('<tile x="{{x}}}" y="{{y}}" grid="grid" tile="tile"></tile>');
+      element = angular.element('<tile x="{{x}}" y="{{y}}" grid="grid" tile="tile"></tile>');
       $compile(element)(parentScope);
       parentScope.$digest();
-      isolatedScope = element.scope();
+      isolatedScope = element.isolateScope();
     };
   };
 
@@ -47,8 +41,8 @@ describe('Directive:tile', function () {
   beforeEach(inject(injectFn(x, y)));
 
   it('should check scoped values', inject(function (boardMock) {
-    expect(isolatedScope.x).toEqual(x);
-    expect(isolatedScope.y).toEqual(y);
+    expect(isolatedScope.x).toEqual(x+'');
+    expect(isolatedScope.y).toEqual(y+'');
     expect(isolatedScope.tile).toEqual(boardMock[x][y]);
   }));
 
@@ -60,17 +54,33 @@ describe('Directive:tile', function () {
   });
 
   it('should call toggle when on right click', function () {
-    spyOn(parentScope.grid, 'toggle');
     element.trigger('contextmenu');
-    expect(parentScope.grid.toggle).toHaveBeenCalled();
+    expect(parentScope.grid.toggle).toHaveBeenCalledWith(1, 1);
   });
 
-  it('should mark a tile', function () {
-    element.trigger('contextmenu');
-    var classes = getClasses();
-    expect(classes.indexOf('discovered')).toEqual(-1);
-    expect(classes.indexOf('marked')).not.toEqual(-1);
-    expect(classes.indexOf('mined')).toEqual(-1);
+  it('should have marked class on marked tile', function () {
+    expect(element).not.toHaveClass('marked');
+    parentScope.$apply(function () {
+      parentScope.grid.board[1][1].marked = true;
+    });
+    expect(element).toHaveClass('marked');
+  });
+
+  it('should have mined class on mined tile', function () {
+    expect(element).not.toHaveClass('mined');
+    parentScope.$apply(function () {
+      parentScope.grid.board[1][1].mine = true;
+      parentScope.grid.board[1][1].value = null;
+    });
+    expect(element).toHaveClass('mined');
+  });
+
+  it('should have discovered class on discovered tile', function () {
+    expect(element).not.toHaveClass('discovered');
+    parentScope.$apply(function () {
+      parentScope.grid.board[1][1].value = 3;
+    });
+    expect(element).toHaveClass('discovered');
   });
 
   describe('Directive:tile:non-mine', function () {
@@ -82,14 +92,6 @@ describe('Directive:tile', function () {
       spyOn(parentScope.grid, 'reveal');
       element.trigger('click');
       expect(parentScope.grid.reveal).toHaveBeenCalled();
-    });
-
-    it('should have discovered class', function () {
-      element.trigger('click');
-      var classes = getClasses();
-      expect(classes.indexOf('discovered')).not.toEqual(-1);
-      expect(classes.indexOf('marked')).toEqual(-1);
-      expect(classes.indexOf('mined')).toEqual(-1);
     });
 
     it('should show the value', function () {
