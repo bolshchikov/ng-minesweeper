@@ -20,11 +20,11 @@ angular.module('ngMinesweeperAppInternal')
         var y = parseInt(scope.y, 10);
 
         scope.isDiscovered = function () {
-          return scope.tile.value >= 0;
+          return scope.tile.discovered;
         };
 
         scope.isMarked = function () {
-          return scope.tile.marked && !scope.isDiscovered();
+          return scope.tile.marked;
         };
 
         scope.isMined = function () {
